@@ -1,0 +1,13 @@
+name: ItemEditor
+version: '${project.version}'
+main: dev.jamieisgeek.itemeditor.ItemEditor
+api-version: 1.18
+prefix: ItemEditor
+authors: [ JamieIsGeek ]
+description: A plugin to easily change things about items using commands
+commands:
+  rename:
+    description: Rename the item that is in your hand!
+
+  setlore:
+    description: Change the lore on the item in your hand!
