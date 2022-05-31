@@ -16,12 +16,7 @@ public class DisplayNameCommand implements CommandExecutor {
         if(sender instanceof Player) {
             Player p = (Player) sender;
             ItemEditorUtils itemEditorUtils = ItemEditorUtils.getItemEditorUtils();
-
-            if(args[0] != null) {
-                itemEditorUtils.ChangeDisplayName(p, args);
-            } else {
-                p.sendMessage(itemEditorUtils.getPrefix() + ChatColor.RED + "You must provide a new name for the item!");
-            }
+            itemEditorUtils.ChangeDisplayName(p, args);
 
         } else {
             Bukkit.getLogger().warning("You must run this command in-game!");

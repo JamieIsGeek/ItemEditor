@@ -1,6 +1,7 @@
 package dev.jamieisgeek.itemeditor;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -16,45 +17,59 @@ public class ItemEditorUtils {
 
         ItemStack currentItem = p.getInventory().getItemInMainHand();
 
-        if(currentItem == null) {
+        if(currentItem.equals(Material.AIR)) {
             p.sendMessage(prefix + ChatColor.RED + "You must hold an item to rename!");
-            return;
         } else {
-            ItemMeta currentItemMeta = currentItem.getItemMeta();
 
-            String preColour = args.toString();
-            String newName = colourize(preColour);
+            if(currentItem.getItemMeta() == null) {
+                p.sendMessage(prefix + "Please hold an item to rename!");
+            } else {
+                ItemMeta currentItemMeta = currentItem.getItemMeta();
 
-            currentItemMeta.setDisplayName(newName);
-            currentItem.setItemMeta(currentItemMeta);
+                String newName = colourize(argsToString(args).toString());
 
-            p.getInventory().setItemInMainHand(currentItem);
-            p.sendMessage(prefix + "Changed name successfully!");
+                currentItemMeta.setDisplayName(newName);
+                currentItem.setItemMeta(currentItemMeta);
+
+                p.getInventory().setItemInMainHand(currentItem);
+                p.sendMessage(prefix + "Changed name successfully!");
+            }
         }
     }
 
     public void ChangeLore(Player p, String[] args) {
         ItemStack currentItem = p.getInventory().getItemInMainHand();
 
-        if(currentItem == null) {
+        if(currentItem.equals(Material.AIR)) {
             p.sendMessage(prefix + ChatColor.RED + "You must hold an item to change the lore of!");
-            return;
         } else {
-            ItemMeta currentItemMeta = currentItem.getItemMeta();
 
-            String preColour = args.toString();
-            String newLore = colourize(preColour);
+            if(currentItem.getItemMeta() == null) {
+                p.sendMessage(prefix + "Please hold an item to change the lore of!");
+            } else {
+                ItemMeta currentItemMeta = currentItem.getItemMeta();
 
-            ArrayList<String> lore = new ArrayList<>();
-            lore.add(newLore);
-            currentItemMeta.setLore(lore);
-            currentItem.setItemMeta(currentItemMeta);
+                String newLore = colourize(argsToString(args).toString());
 
-            p.getInventory().setItemInMainHand(currentItem);
-            p.sendMessage(prefix + "Applied lore successfully!");
+                ArrayList<String> lore = new ArrayList<>();
+                lore.add(newLore);
+                currentItemMeta.setLore(lore);
+                currentItem.setItemMeta(currentItemMeta);
+
+                p.getInventory().setItemInMainHand(currentItem);
+                p.sendMessage(prefix + "Applied lore successfully!");
+            }
         }
     }
 
+    public StringBuffer argsToString(String[] args) {
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0; i < args.length; i++) {
+            sb.append(args[i] + " ");
+        }
+
+        return sb;
+    }
 
     private String colourize(String preColour) {
         return ChatColor.translateAlternateColorCodes('&', preColour);

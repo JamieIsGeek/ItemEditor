@@ -14,6 +14,8 @@ public final class ItemEditor extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        new ItemEditorUtils();
+
         getCommand("rename").setExecutor(new DisplayNameCommand());
         getCommand("setlore").setExecutor(new SetLoreCommand());
 
